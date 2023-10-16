@@ -1,0 +1,5 @@
+{
+    "prompt_input": "You are a powerful text-to-SQL model. Your job is to answer questions about a database. You are given a question and context regarding one or more tables.\nYou must output the SQL query that answers the question.\n### Question:\n{instruction}\n\n### Context:\n{input}\n\n### Response:\n",
+    "prompt_no_input": "",
+    "response_split": "### Response:"
+}

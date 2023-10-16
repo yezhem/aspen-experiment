@@ -1,0 +1,27 @@
+148a149,155
+> import logging as flog
+> import os
+> import time
+> flog.basicConfig(filename="logs.log",
+>                  filemode='a',
+>                  format='%(message)s',
+>                  level=flog.DEBUG)
+1871a1879,1880
+>                     torch.cuda.reset_peak_memory_stats()
+>                     opti_start_time = time.time()
+1894a1904,1909
+>                     opti_end_time = time.time()
+>                     device_str = inputs["input_ids"].device
+>                     alloc_mem = torch.cuda.max_memory_allocated(device_str)
+>                     gpu_utilization = torch.cuda.utilization(int(os.environ["CUDA_VISIBLE_DEVICES"]))
+>                     flog.info(f"optim: {(opti_end_time - opti_start_time):.10f} {alloc_mem} {gpu_utilization}")
+>                     flog.info(f"train: {tr_loss_step}")
+2658a2674,2675
+>         torch.cuda.reset_peak_memory_stats()
+>         back_start_time = time.time()
+2665a2683,2687
+>         back_end_time = time.time()
+>         device_str = inputs["labels"].device
+>         alloc_mem = torch.cuda.max_memory_allocated(device_str)
+>         gpu_utilization = torch.cuda.utilization(int(os.environ["CUDA_VISIBLE_DEVICES"]))
+>         flog.info(f"backward: {(back_end_time - back_start_time):.10f} {alloc_mem} {gpu_utilization}")

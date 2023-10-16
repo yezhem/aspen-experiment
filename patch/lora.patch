@@ -1,0 +1,26 @@
+46a47,53
+> import logging as flog
+> import os
+> import time
+> flog.basicConfig(filename="logs.log",
+>                  filemode='a',
+>                  format='%(message)s',
+>                  level=flog.DEBUG)
+1148a1156,1157
+>             torch.cuda.reset_peak_memory_stats()
+>             base_start_time = time.time()
+1149a1159,1163
+>             base_end_time = time.time()
+>             device_str = x.device
+>             alloc_mem = torch.cuda.max_memory_allocated(device_str)
+>             gpu_utilization = torch.cuda.utilization(int(os.environ["CUDA_VISIBLE_DEVICES"]))
+>             flog.info(f"base: {(base_end_time-base_start_time):.10f} {alloc_mem} {gpu_utilization}")
+1153a1168,1169
+>                 torch.cuda.reset_peak_memory_stats()
+>                 lora_start_time = time.time()
+1172a1189,1193
+>                 lora_end_time = time.time()
+>                 device_str = x.device
+>                 alloc_mem = torch.cuda.max_memory_allocated(device_str)
+>                 gpu_utilization = torch.cuda.utilization(int(os.environ["CUDA_VISIBLE_DEVICES"]))
+>                 flog.info(f"lora: {(lora_end_time-lora_start_time):.10f} {alloc_mem} {gpu_utilization}")

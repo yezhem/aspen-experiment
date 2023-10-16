@@ -1,0 +1,29 @@
+38a39,46
+> import logging as flog
+> import os
+> import time
+> flog.basicConfig(filename="logs.log",
+>                  filemode='a',
+>                  format='%(message)s',
+>                  level=flog.DEBUG)
+>
+805a814,816
+>         flog.info(f"data size: {input_ids.shape[0]} {input_ids.shape[1]}")
+>         torch.cuda.reset_peak_memory_stats()
+>         forward_start_time = time.time()
+816a828,832
+>         forward_end_time = time.time()
+>         device_str = input_ids.device
+>         alloc_mem = torch.cuda.max_memory_allocated(device_str)
+>         gpu_uilization = torch.cuda.utilization(int(os.environ["CUDA_VISIBLE_DEVICES"]))
+>         flog.info(f"forward: {(forward_end_time - forward_start_time):.10f} {alloc_mem} {gpu_uilization}")
+837a854,856
+>
+>             torch.cuda.reset_peak_memory_stats()
+>             loss_start_time = time.time()
+838a858,862
+>             loss_end_time = time.time()
+>             device_str = input_ids.device
+>             alloc_mem = torch.cuda.max_memory_allocated(device_str)
+>             gpu_uilization = torch.cuda.utilization(int(os.environ["CUDA_VISIBLE_DEVICES"]))
+>             flog.info(f"loss: {(loss_end_time - loss_start_time):.10f} {alloc_mem} {gpu_uilization}")
