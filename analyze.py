@@ -103,7 +103,7 @@ def get_peak_mem_metric(metric: List[Metric]):
     peak_mem = 0
     for m in metric:
         peak_mem = max([peak_mem, m.forward_mem, m.backward_mem,
-                       max(m.base_mem), max(m.lora_mem), m.loss_calc_mem, m.optim_mem])
+                       max(m.base_mem, default=0), max(m.lora_mem, default=0), m.loss_calc_mem, m.optim_mem])
     return peak_mem
 
 
