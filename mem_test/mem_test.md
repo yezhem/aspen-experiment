@@ -1,4 +1,4 @@
-## How to the peak memory usage
+## How to test the peak memory usage
 ```bash
 export CUDA_VISIBLE_DEVICES=0
 python mlora.py --base_model=<llama-7b-model-path> --device "cuda:0" --config <config.file> --load_8bit
