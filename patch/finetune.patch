@@ -12,3 +12,4 @@ index 0e74641..e9a7a63 100644
 +    #     model = torch.compile(model)
 
      trainer.train(resume_from_checkpoint=resume_from_checkpoint)
+
