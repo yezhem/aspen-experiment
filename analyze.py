@@ -128,6 +128,8 @@ if __name__ == "__main__":
         file_name = sys.argv[1]
 
     metric = read_all_metric_from_file(file_name)
-    print(f"total time cost: {get_total_time_metric(metric)}")
+    total_time_lantency = get_total_time_metric(metric)
+    print(f"total time cost: {total_time_lantency}")
     print(f"peak memory usage: {get_peak_mem_metric(metric)}")
     print(f"avg gpu utl: {get_avg_gpu_metirc(metric)}")
+    print(f"throughput: {get_total_tokens(metric)/total_time_lantency}")
