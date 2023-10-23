@@ -121,6 +121,15 @@ def get_avg_gpu_metirc(metric: List[Metric]):
     return sum(gpu_util) / len(gpu_util)
 
 
+def get_forward_and_backward_metric(metric: List[Metric]):
+    forward_time = 0
+    backward_time = 0
+    for m in metric:
+        forward_time += m.forward_time
+        backward_time += m.backward_time
+    return forward_time, backward_time
+
+
 if __name__ == "__main__":
     if len(sys.argv) <= 1:
         print("No file to analyze")
@@ -129,7 +138,10 @@ if __name__ == "__main__":
 
     metric = read_all_metric_from_file(file_name)
     total_time_lantency = get_total_time_metric(metric)
+    forward_time, backward_time = get_forward_and_backward_metric(metric)
     print(f"total time cost: {total_time_lantency}")
+    print(f"forward time: {forward_time}")
+    print(f"backward time: {backward_time}")
     print(f"peak memory usage: {get_peak_mem_metric(metric)}")
     print(f"avg gpu utl: {get_avg_gpu_metirc(metric)}")
     print(f"throughput: {get_total_tokens(metric)/total_time_lantency}")
