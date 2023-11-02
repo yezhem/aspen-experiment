@@ -13,5 +13,22 @@ python finetune.py --base_model= --data_path="data/data_set_3.json" --batch_size
 ```bash
 # run the 2 process simultaneously
 python finetune.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=6 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["q_proj","k_proj","v_proj","o_proj"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=1e-4 --group_by_length && python finetune.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=6 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["q_proj","k_proj","v_proj","o_proj"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=5e-4 --group_by_length
+# run below command simultaneously and in same gpu
 python finetune.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=6 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["q_proj","k_proj","v_proj","o_proj"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=1e-3 --group_by_length && python finetune.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=6 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["q_proj","k_proj","v_proj","o_proj"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=5e-3 --group_by_length
+```
+
+### test chatglm2-6b
+* test aspen
+```bash
+python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm.json --model_type "chatglm" --load_4bit
+```
+* test aspen@seq
+```bash
+python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_1.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_2.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_3.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_4.json --model_type "chatglm" --load_4bit
+```
+* test aspen@sync
+```bash
+python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_1.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_2.json --model_type "chatglm" --load_4bit
+# run below command simultaneously and in same gpu
+python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_3.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_4.json --model_type "chatglm" --load_4bit
 ```
