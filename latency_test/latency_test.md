@@ -20,15 +20,19 @@ python finetune.py --base_model= --data_path="data/data_set_3.json" --batch_size
 ### test chatglm2-6b
 * test aspen
 ```bash
-python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm.json --model_type "chatglm" --load_4bit
+export CUDA_VISIBLE_DEVICES=0
+python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config latency_test_chatglm.json --model_type "chatglm" --load_8bit
 ```
 * test aspen@seq
 ```bash
-python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_1.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_2.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_3.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_4.json --model_type "chatglm" --load_4bit
+export CUDA_VISIBLE_DEVICES=0
+python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=1e-4 --group_by_length && python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=5e-4 --group_by_length && python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=1e-3 --group_by_length && python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=5e-3 --group_by_length
 ```
 * test aspen@sync
 ```bash
-python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_1.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_2.json --model_type "chatglm" --load_4bit
+# run the 2 process simultaneously
+export CUDA_VISIBLE_DEVICES=0
+python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=1e-4 --group_by_length && python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=5e-4 --group_by_length
 # run below command simultaneously and in same gpu
-python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_3.json --model_type "chatglm" --load_4bit && python mlora.py --base_model=<chatglm-model> --device "cuda:0" --config chatglm/latency_test_chatglm_task_4.json --model_type "chatglm" --load_4bit
+python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=1e-3 --group_by_length && python finetune_chatglm.py --base_model= --data_path="data/data_set_3.json" --batch_size=60 --micro_batch_size=4 --num_epochs=4 --val_set_size=-1 --lora_target_modules=["dense","dense_4h_to_h","dense_h_to_4h","query_key_value"] --cutoff_len=1024 --prompt_template_name=sql --learning_rate=5e-3 --group_by_length
 ```
