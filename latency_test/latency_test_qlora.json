@@ -1,7 +1,5 @@
 {
     "cutoff_len": 1024,
-    "group_by_length": true,
-    "expand_right": true,
     "pad_token_id": -1,
     "save_step": 2000,
     "early_stop_test_step": 2000,
@@ -12,7 +10,7 @@
         {
             "name": "lora_0",
             "output": "lora_0",
-            "optim": "adamw",
+            "optim": "paged_adamw_32bit",
             "lr": 1e-4,
             "batch_size": 60,
             "micro_batch_size": 6,
@@ -34,12 +32,12 @@
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
             "group_by_length": true,
-            "expand_right": true
+            "expand_side": "right"
         },
         {
             "name": "lora_1",
             "output": "lora_1",
-            "optim": "adamw",
+            "optim": "paged_adamw_32bit",
             "lr": 5e-4,
             "batch_size": 60,
             "micro_batch_size": 6,
@@ -61,12 +59,12 @@
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
             "group_by_length": true,
-            "expand_right": true
+            "expand_side": "right"
         },
         {
             "name": "lora_2",
             "output": "lora_2",
-            "optim": "adamw",
+            "optim": "paged_adamw_32bit",
             "lr": 1e-3,
             "batch_size": 60,
             "micro_batch_size": 6,
@@ -88,12 +86,12 @@
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
             "group_by_length": true,
-            "expand_right": true
+            "expand_side": "right"
         },
         {
             "name": "lora_3",
             "output": "lora_3",
-            "optim": "adamw",
+            "optim": "paged_adamw_32bit",
             "lr": 5e-3,
             "batch_size": 60,
             "micro_batch_size": 6,
@@ -115,7 +113,7 @@
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
             "group_by_length": true,
-            "expand_right": true
+            "expand_side": "right"
         }
     ]
 }

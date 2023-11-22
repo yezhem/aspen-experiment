@@ -1,7 +1,5 @@
 {
-    "cutoff_len": 1024,
-    "group_by_length": true,
-    "expand_right": true,
+    "cutoff_len": 512,
     "pad_token_id": -1,
     "save_step": 2000,
     "early_stop_test_step": 2000,
@@ -33,8 +31,8 @@
             "data": "data/data_set_3.json",
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
-            "group_by_length": true,
-            "expand_right": true
+            "group_by_length": false,
+            "expand_side": "right"
         },
         {
             "name": "lora_1",
@@ -60,8 +58,8 @@
             "data": "data/data_set_3.json",
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
-            "group_by_length": true,
-            "expand_right": true
+            "group_by_length": false,
+            "expand_side": "right"
         },
         {
             "name": "lora_2",
@@ -87,8 +85,8 @@
             "data": "data/data_set_3.json",
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
-            "group_by_length": true,
-            "expand_right": true
+            "group_by_length": false,
+            "expand_side": "right"
         },
         {
             "name": "lora_3",
@@ -114,8 +112,8 @@
             "data": "data/data_set_3.json",
             "test_data": "data/data_set_5.json",
             "prompt": "aspen_template/sql.json",
-            "group_by_length": true,
-            "expand_right": true
+            "group_by_length": false,
+            "expand_side": "right"
         }
     ]
 }
