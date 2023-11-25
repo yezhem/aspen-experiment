@@ -171,6 +171,54 @@ void schedule_B(std::vector<Job> jobs)
               << "," << now_it << std::endl;
 }
 
+void schedule_C(std::vector<Job> jobs)
+{
+    uint32_t now_it = 0;
+    uint32_t turnaround_time = 0;
+    uint32_t turnaround_time_with_weight = 0;
+    uint32_t waiting_time = 0;
+    std::vector<Job> running_jobs(jobs);
+
+    while (!running_jobs.empty())
+    {
+        ++now_it;
+        using job_sort_t = std::pair<uint32_t, std::vector<Job>::iterator>;
+        std::vector<job_sort_t> buffer;
+        for (auto it = running_jobs.begin(); it != running_jobs.end(); ++it)
+        {
+            buffer.push_back(std::make_pair(it->mem_usage[it->already_run_it], it));
+        }
+        std::sort(buffer.begin(), buffer.end(), [](const job_sort_t &l, const job_sort_t &r)
+                  { return l.first < r.first; });
+        uint32_t mem = 0;
+        for (auto it = buffer.begin(); it != buffer.end(); ++it)
+        {
+            if (it->first + mem > 100)
+            {
+                break;
+            }
+            mem += it->first;
+
+            if (it->second->already_run_it == 0)
+            {
+                waiting_time += now_it;
+            }
+            it->second->already_run_it++;
+            if (it->second->already_run_it >= it->second->actual_iterations)
+            {
+                turnaround_time += now_it;
+                turnaround_time_with_weight += (now_it * it->second->priority);
+                running_jobs.erase(it->second);
+            }
+        }
+    }
+
+    std::cout << "" << turnaround_time / total_jobs
+              << " " << turnaround_time_with_weight / ((1 + total_jobs) * total_jobs / 2)
+              << " " << waiting_time / total_jobs
+              << " " << now_it << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
     top_k = std::atoi(argv[1]);
@@ -179,5 +227,6 @@ int main(int argc, char *argv[])
     auto jobs = generate_jobs();
     schedule_A(jobs);
     schedule_B(jobs);
+    schedule_C(jobs);
     return 0;
 }
