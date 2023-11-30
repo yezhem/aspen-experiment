@@ -225,8 +225,8 @@ int main(int argc, char *argv[])
     predict_success_rate = std::atoi(argv[2]);
 
     auto jobs = generate_jobs();
-    schedule_A(jobs);
-    schedule_B(jobs);
-    schedule_C(jobs);
+    schedule_A(jobs); // FIFO
+    schedule_B(jobs); // MinPad
+    schedule_C(jobs); // Adaptive
     return 0;
 }
