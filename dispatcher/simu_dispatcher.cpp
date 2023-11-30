@@ -64,7 +64,7 @@ std::vector<Job> generate_jobs()
     return ret;
 }
 
-void schedule_A(std::vector<Job> jobs)
+void schedule_FIFO(std::vector<Job> jobs)
 {
     uint32_t now_it = 0;
     uint32_t turnaround_time = 0;
@@ -108,7 +108,7 @@ void schedule_A(std::vector<Job> jobs)
               << " " << now_it << std::endl;
 }
 
-void schedule_B(std::vector<Job> jobs)
+void schedule_Adaptive(std::vector<Job> jobs)
 {
     uint32_t now_it = 0;
     uint32_t turnaround_time = 0;
@@ -171,7 +171,7 @@ void schedule_B(std::vector<Job> jobs)
               << "," << now_it << std::endl;
 }
 
-void schedule_C(std::vector<Job> jobs)
+void schedule_MinPad(std::vector<Job> jobs)
 {
     uint32_t now_it = 0;
     uint32_t turnaround_time = 0;
@@ -225,8 +225,8 @@ int main(int argc, char *argv[])
     predict_success_rate = std::atoi(argv[2]);
 
     auto jobs = generate_jobs();
-    schedule_A(jobs); // FIFO
-    schedule_B(jobs); // MinPad
-    schedule_C(jobs); // Adaptive
+    schedule_FIFO(jobs);     // FIFO
+    schedule_MinPad(jobs);   // MinPad
+    schedule_Adaptive(jobs); // Adaptive
     return 0;
 }
